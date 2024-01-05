@@ -2,3 +2,5 @@
 set -e 
 
 ./scripts/setup/verify-environment
+
+yarn
