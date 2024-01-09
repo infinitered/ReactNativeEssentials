@@ -54,6 +54,9 @@ export const GamesListScreen = () => {
       keyExtractor={item => String(item.id)}
       contentContainerStyle={[{paddingBottom}, $contentContainer]}
       ListEmptyComponent={<Empty />}
+      initialNumToRender={6}
+      maxToRenderPerBatch={20}
+      windowSize={31}
       renderItem={({item}) => (
         <Card
           onPress={() => navigation.navigate('GameDetails', {gameId: item.id})}
