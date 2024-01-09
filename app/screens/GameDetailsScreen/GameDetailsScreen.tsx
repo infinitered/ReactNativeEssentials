@@ -78,7 +78,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
         </View>
 
         {!game ? (
-          <Empty />
+          <Empty text={'Loading\nPlease Wait...'} icon="loader" />
         ) : (
           <>
             <View style={$informationWrapper}>
@@ -172,12 +172,12 @@ const $scrollView: ViewStyle = {
 }
 
 const $contentContainer: ViewStyle = {
-  minHeight: '100%',
+  flexGrow: 1,
 }
 
 const $bodyWrapper: ViewStyle = {
   paddingHorizontal: sizes.spacing.md,
-  flex: 1,
+  flexGrow: 1,
 }
 
 const $informationWrapper: ViewStyle = {
