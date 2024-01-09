@@ -13,14 +13,11 @@ import {Pill} from '../../components/Pill'
 function parseGameData(rawData: Game[]): GamesSectionList {
   const initialValue: {[k: number]: Game[]} = {}
   const gameListMap = rawData.reduce((acc, curr) => {
-    // This data is not consistent. Sometimes there is no year for release.
-    const year = curr.releaseDates.reverse()[0]?.y
-    if (year) {
-      if (acc[year]) {
-        acc[year].push(curr)
-      } else {
-        acc[year] = [curr]
-      }
+    const year = curr.releaseDate.y
+    if (acc[year]) {
+      acc[year].push(curr)
+    } else {
+      acc[year] = [curr]
     }
     return acc
   }, initialValue)
