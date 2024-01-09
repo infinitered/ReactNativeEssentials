@@ -8,14 +8,9 @@ import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
-  NavigationHelpers,
 } from '@react-navigation/native'
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack'
 import React from 'react'
-import {Pressable, useColorScheme, type ViewStyle} from 'react-native'
+import {useColorScheme, View, type ViewStyle} from 'react-native'
 import {GameDetailsScreen} from '../screens/GameDetailsScreen/GameDetailsScreen'
 import {GamesListScreen} from '../screens/GamesListScreen/GamesListScreen'
 import {ReviewScreen} from '../screens/ReviewScreen/ReviewScreen'
@@ -25,6 +20,7 @@ import {safeParse} from '../utils/safeParse'
 import {colors, fonts} from '../theme'
 import {Icon} from '../components/Icon'
 import {spacing12} from '../theme/tokens/sizePrimitives'
+import {StackScreenProps, createStackNavigator} from '@react-navigation/stack'
 
 export const storage = new MMKV({id: '@RNEssentials/navigation/state'})
 
@@ -51,25 +47,21 @@ export type AppStackParamList = {
 }
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>
+  StackScreenProps<AppStackParamList, T>
 
-export type ScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>
+export type ScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
+  AppStackParamList,
+  T
+>
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<AppStackParamList>()
+const Stack = createStackNavigator<AppStackParamList>()
 
-const renderBackButton = (navigation: NavigationHelpers<AppStackParamList>) => {
+const renderBackButton = () => {
   return (
-    navigation.canGoBack() && (
-      <Pressable style={$backButton} onPress={() => navigation.goBack()}>
-        <Icon
-          name="arrow-left-circle"
-          size={30}
-          color={colors.tokens.textBase}
-        />
-      </Pressable>
-    )
+    <View style={$backButton}>
+      <Icon name="arrow-left-circle" size={30} color={colors.tokens.textBase} />
+    </View>
   )
 }
 
@@ -77,10 +69,13 @@ const AppStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="TmpDevScreen"
-      screenOptions={({navigation}) => ({
-        headerLeft: () => renderBackButton(navigation),
+      screenOptions={{
+        headerBackImage: () => renderBackButton(),
+        headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: colors.tokens.backgroundHeaderList,
+          borderBottomColor: colors.tokens.textBase,
+          borderBottomWidth: 2,
         },
         headerTitleAlign: 'center',
         headerTintColor: colors.tokens.textBase,
@@ -88,7 +83,7 @@ const AppStack = () => {
           fontSize: 24,
           fontFamily: fonts.primary.semiBold,
         },
-      })}>
+      }}>
       <Stack.Screen
         name="TmpDevScreen"
         component={TmpDevScreen}
@@ -127,5 +122,5 @@ export const AppNavigator = (props: NavigationProps) => {
 }
 
 const $backButton: ViewStyle = {
-  marginRight: spacing12,
+  marginHorizontal: spacing12,
 }
