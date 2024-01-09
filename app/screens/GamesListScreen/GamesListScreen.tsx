@@ -53,5 +53,5 @@ const $list: ViewStyle = {
 
 const $contentContainer: ViewStyle = {
   rowGap: sizes.spacing.lg,
-  paddingHorizontal: sizes.spacing.md,
+  padding: sizes.spacing.md,
 }
