@@ -55,7 +55,7 @@ export const GlobalStateProvider = ({children}: PropsWithChildren) => {
     (gameId, review) => {
       const newReviews = {
         ...reviews,
-        [gameId]: [...(reviews[gameId] || []), review],
+        [gameId]: [review, ...(reviews[gameId] || [])],
       }
 
       setReviews(newReviews)
