@@ -3,6 +3,11 @@ import {setupServer} from 'msw/native'
 import {games} from './handlers/games'
 import {game} from './handlers/game'
 
+/**
+ * JSON mocks can be updated from IR's postman collection:
+ * https://infinitered.postman.co/workspace/RN-Essentials~55d940f6-3d2e-4523-be26-b46db813a0ea/request/5586709-6c690fab-f460-40d6-8459-1ec5fc142fd4?ctx=documentation
+ */
+
 const server = setupServer(games, game)
 
 export function setupMockServer(opts: {debug?: boolean} = {}) {
