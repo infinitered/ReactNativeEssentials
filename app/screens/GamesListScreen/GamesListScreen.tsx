@@ -1,12 +1,32 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useCallback, useEffect} from 'react'
-import {FlatList, ViewStyle} from 'react-native'
+import {SectionList, ViewStyle} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Card} from '../../components/Card'
 import {api} from '../../services/api'
 import {useGlobalState} from '../../services/state'
 import {colors, sizes} from '../../theme'
 import {Empty} from '../../components/Empty'
+import {Game, GamesSectionList} from '../../services/types'
+import {Pill} from '../../components/Pill'
+
+function parseGameData(rawData: Game[]): GamesSectionList {
+  const initialValue: {[k: number]: Game[]} = {}
+  const gameListMap = rawData.reduce((acc, curr) => {
+    // This data is not consistent. Sometimes there is no year for release.
+    const year = curr.releaseDates.reverse()[0]?.y
+    if (year) {
+      if (acc[year]) {
+        acc[year].push(curr)
+      } else {
+        acc[year] = [curr]
+      }
+    }
+    return acc
+  }, initialValue)
+
+  return Object.entries(gameListMap).map(([k, v]) => ({title: k, data: v}))
+}
 
 export const GamesListScreen = () => {
   const {bottom: paddingBottom} = useSafeAreaInsets()
@@ -19,7 +39,7 @@ export const GamesListScreen = () => {
     const response = await api.getGames()
 
     if (response.ok) {
-      setGames(response.data)
+      setGames(parseGameData(response.data))
     }
   }, [setGames])
 
@@ -28,8 +48,8 @@ export const GamesListScreen = () => {
   }, [getGames])
 
   return (
-    <FlatList
-      data={games}
+    <SectionList
+      sections={games}
       style={$list}
       keyExtractor={item => String(item.id)}
       contentContainerStyle={[{paddingBottom}, $contentContainer]}
@@ -43,6 +63,7 @@ export const GamesListScreen = () => {
           imageUrl={item.cover.imageUrl}
         />
       )}
+      renderSectionHeader={({section: {title}}) => <Pill text={title} />}
     />
   )
 }

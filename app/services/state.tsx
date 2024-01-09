@@ -12,6 +12,7 @@ import {
   type Reviews,
   type AppendReview,
   type GlobalStateContextData,
+  GamesSectionList,
 } from './types'
 import {MMKV} from 'react-native-mmkv'
 import {safeParse} from '../utils/safeParse'
@@ -23,7 +24,7 @@ const initReviews = safeParse(storage.getString('reviews'), {})
 
 export const GlobalStateContext = createContext<GlobalStateContextData>({
   games: [],
-  setGames: (_games: Array<Game>) => undefined,
+  setGames: (_games: GamesSectionList) => undefined,
   favorites: initFavorites,
   toggleFavorite: (_gameId: Game['id']) => undefined,
   reviews: initReviews,
@@ -31,7 +32,7 @@ export const GlobalStateContext = createContext<GlobalStateContextData>({
 })
 
 export const GlobalStateProvider = ({children}: PropsWithChildren) => {
-  const [games, setGames] = useState<Array<Game>>([])
+  const [games, setGames] = useState<GamesSectionList>([])
   const [favorites, setFavorites] = useState<Favorites>(initFavorites)
   const [reviews, setReviews] = useState<Reviews>(initReviews)
 
