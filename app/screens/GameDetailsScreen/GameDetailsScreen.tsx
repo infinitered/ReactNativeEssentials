@@ -43,10 +43,10 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
     cover,
     screenshots,
     name,
-    releaseDates,
+    releaseDate,
     genres,
     involvedCompanies,
-    totalRatingStarsRounded,
+    totalRatingStars,
     summary,
   } = game ?? {}
 
@@ -86,7 +86,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
                 <Text preset="label2" text="Released:" />
                 <Text
                   preset="title2"
-                  text={releaseDates?.[0].human}
+                  text={releaseDate?.human}
                   style={$informationValue}
                 />
               </View>
@@ -108,15 +108,13 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
               </View>
               <View style={[$informationRow, $ratingWrapper]}>
                 <Text preset="label2" text="Rating: " />
-                {Array.from({length: totalRatingStarsRounded ?? 0}).map(
-                  (_, i) => (
-                    <Icon
-                      color={colors.tokens.borderRatingActive}
-                      key={i}
-                      name="star"
-                    />
-                  ),
-                )}
+                {Array.from({length: totalRatingStars ?? 0}).map((_, i) => (
+                  <Icon
+                    color={colors.tokens.borderRatingActive}
+                    key={i}
+                    name="star"
+                  />
+                ))}
               </View>
             </View>
 
