@@ -17,6 +17,7 @@ import {api} from '../../services/api'
 import {useGlobalState} from '../../services/state'
 import {Game} from '../../services/types'
 import {colors, sizes} from '../../theme'
+import {useNavigation} from '@react-navigation/native'
 
 interface ReviewsProps {
   gameId: number
@@ -133,6 +134,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
 const Reviews = ({gameId}: ReviewsProps) => {
   const state = useGlobalState()
   const {bottom: paddingBottom} = useSafeAreaInsets()
+  const navigation = useNavigation()
 
   const reviews = gameId ? state.reviews[gameId] ?? [] : []
 
@@ -144,9 +146,7 @@ const Reviews = ({gameId}: ReviewsProps) => {
         </Text>
         <Button
           text="Write A Review"
-          onPress={() =>
-            state.appendReview(gameId, Math.random().toString(36).substr(2, 10))
-          }
+          onPress={() => navigation.navigate('Review', {gameId})}
         />
       </View>
 
