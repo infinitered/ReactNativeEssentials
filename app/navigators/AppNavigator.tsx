@@ -100,7 +100,11 @@ const AppStack = () => {
       <Stack.Screen
         name="Review"
         component={ReviewScreen}
-        options={{presentation: 'modal'}}
+        options={{
+          animation: 'fade_from_bottom',
+          presentation: 'transparentModal',
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   )
