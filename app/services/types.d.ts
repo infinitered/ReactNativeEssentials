@@ -9,10 +9,6 @@ export interface PostGamesParams {
   limit?: number
   offset?: number
 }
-export type GamesSectionList = Array<{
-  title: string
-  data: Game[]
-}>
 
 export interface Game {
   id: number
@@ -53,7 +49,7 @@ export interface GameReleaseDate {
   y: number
 }
 
-export type SetGames = (games: GamesSectionList) => void
+export type SetGames = (games: Array<Game>) => void
 
 export type Favorites = Array<Game['id']>
 
@@ -64,7 +60,7 @@ export type Reviews = Record<Game['id'], Array<string>>
 export type AppendReview = (gameId: Game['id'], review: string) => void
 
 export interface GlobalStateContextData {
-  games: GamesSectionList
+  games: Array<Game>
   setGames: SetGames
   favorites: Favorites
   toggleFavorite: ToggleFavorite
