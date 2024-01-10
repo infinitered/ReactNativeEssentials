@@ -21,9 +21,8 @@ import {GamesListScreen} from '../screens/GamesListScreen/GamesListScreen'
 import {ReviewScreen} from '../screens/ReviewScreen/ReviewScreen'
 import {MMKV} from 'react-native-mmkv'
 import {safeParse} from '../utils/safeParse'
-import {colors, fonts} from '../theme'
+import {colors, fonts, sizes} from '../theme'
 import {Icon} from '../components/Icon'
-import {spacing12} from '../theme/tokens/sizePrimitives'
 
 export const storage = new MMKV({id: '@RNEssentials/navigation/state'})
 
@@ -128,5 +127,5 @@ export const AppNavigator = (props: NavigationProps) => {
 }
 
 const $backButton: ViewStyle = {
-  marginRight: spacing12,
+  marginRight: sizes.spacing.md,
 }
