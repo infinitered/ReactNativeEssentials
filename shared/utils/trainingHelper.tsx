@@ -13,6 +13,7 @@ const appModes = [
   {label: 'Chapter 4 Solution', value: 'chapter4'},
   {label: 'Chapter 5 Solution', value: 'chapter5'},
   {label: 'Chapter 6 Solution', value: 'chapter6'},
+  {label: 'Chapter 7 Solution', value: 'chapter7'},
 ] as const
 
 export function setupAppModeSelector() {
