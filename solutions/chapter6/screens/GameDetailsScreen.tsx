@@ -234,13 +234,15 @@ const $image: ImageStyle = {
   width: 115,
   backgroundColor: colors.tokens.backgroundSurface200,
   position: 'absolute',
+  bottom: 0,
 }
 
 const $headerWrapper: ViewStyle = {
-  alignItems: 'flex-end',
+  alignItems: 'center',
   flexDirection: 'row',
   paddingVertical: sizes.spacing.md,
   paddingLeft: ($image.width as number) + sizes.spacing.md,
+  minHeight: 104,
 }
 
 const $reviewsHeaderWrapper: ViewStyle = {
