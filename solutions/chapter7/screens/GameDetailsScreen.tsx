@@ -55,6 +55,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
     genres,
     involvedCompanies,
     totalRatingStars,
+    totalRatingCount,
     summary,
   } = game ?? {}
 
@@ -130,7 +131,12 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
                   style={$informationValue}
                 />
               </View>
-              {!!totalRatingStars && <Rating rating={totalRatingStars} />}
+              {!!totalRatingStars && (
+                <Rating
+                  ratingsCount={totalRatingCount}
+                  rating={totalRatingStars}
+                />
+              )}
             </View>
 
             <View style={$descriptionWrapper}>
