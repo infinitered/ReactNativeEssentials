@@ -1,8 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native'
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import React from 'react'
 
 /**
@@ -31,7 +28,7 @@ declare global {
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<AppStackParamList>()
+// const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
   return null
