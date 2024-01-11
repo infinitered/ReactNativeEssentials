@@ -33,13 +33,16 @@ const $welcomeContainer: ViewStyle = {
 
 const $welcomeSmall: TextStyle = {
   fontSize: 18,
+  color: 'black',
 }
 
 const $welcomeLarge: TextStyle = {
   fontSize: 48,
+  color: 'black',
 }
 
 const $screenInfo: TextStyle = {
   fontSize: 12,
   opacity: 0.5,
+  color: 'black',
 }
