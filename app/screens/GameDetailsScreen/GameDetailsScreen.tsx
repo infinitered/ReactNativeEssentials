@@ -15,16 +15,23 @@ import {Text} from '../../components/Text'
 import {type ScreenProps} from '../../navigators/AppNavigator'
 import {api} from '../../services/api'
 import {useGlobalState} from '../../services/state'
-import {Game} from '../../services/types'
+import {Game, type Reviews} from '../../services/types'
 import {colors, sizes} from '../../theme'
+import {useNavigation} from '@react-navigation/native'
+import {Switch} from '../../components/Switch'
 
 interface ReviewsProps {
   gameId: number
+  reviews: Reviews[keyof Reviews]
 }
 
 export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
+  const {bottom: paddingBottom} = useSafeAreaInsets()
   const gameId = route.params.gameId
+  const state = useGlobalState()
+  const reviews = gameId ? state.reviews[gameId] ?? [] : []
 
+  const {favorites, toggleFavorite} = useGlobalState()
   const [game, setGame] = useState<Game | undefined>()
 
   const getGame = useCallback(async () => {
@@ -40,6 +47,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
   }, [getGame])
 
   const {
+    id,
     cover,
     screenshots,
     name,
@@ -51,7 +59,18 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
   } = game ?? {}
 
   return (
-    <ScrollView style={$scrollView} contentContainerStyle={$contentContainer}>
+    <ScrollView
+      style={[
+        $scrollView,
+        {paddingBottom},
+        {
+          backgroundColor:
+            reviews.length > 0
+              ? colors.tokens.backgroundSurface200
+              : colors.tokens.backgroundSurface100,
+        },
+      ]}
+      contentContainerStyle={$contentContainer}>
       {screenshots ? (
         <Image
           blurRadius={10}
@@ -61,7 +80,21 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
       ) : (
         <View style={$imageBackground} />
       )}
-
+      {id ? (
+        <View style={$favoriteWrapper}>
+          <Text
+            style={$favoriteLabel}
+            preset="title1"
+            text="Add to Favorites"
+          />
+          <Switch
+            isEnabled={Boolean(
+              favorites.find(favoriteGameId => favoriteGameId === id),
+            )}
+            toggleSwitch={() => toggleFavorite(id)}
+          />
+        </View>
+      ) : null}
       <View style={$bodyWrapper}>
         <View style={$headerWrapper}>
           {cover ? (
@@ -125,16 +158,13 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
         )}
       </View>
 
-      <Reviews gameId={gameId} />
+      <Reviews gameId={gameId} reviews={reviews} />
     </ScrollView>
   )
 }
 
-const Reviews = ({gameId}: ReviewsProps) => {
-  const state = useGlobalState()
-  const {bottom: paddingBottom} = useSafeAreaInsets()
-
-  const reviews = gameId ? state.reviews[gameId] ?? [] : []
+const Reviews = ({gameId, reviews}: ReviewsProps) => {
+  const navigation = useNavigation()
 
   return (
     <>
@@ -144,20 +174,13 @@ const Reviews = ({gameId}: ReviewsProps) => {
         </Text>
         <Button
           text="Write A Review"
-          onPress={() =>
-            state.appendReview(gameId, Math.random().toString(36).substr(2, 10))
-          }
+          onPress={() => navigation.navigate('Review', {gameId})}
         />
       </View>
 
-      <View style={[reviews.length === 0 && {paddingBottom}]}>
+      <View>
         {reviews.map((review, index) => (
-          <View
-            key={index}
-            style={[
-              $reviewWrapper,
-              index + 1 === reviews.length && {paddingBottom},
-            ]}>
+          <View key={index} style={$reviewWrapper}>
             <Text text={review} />
           </View>
         ))}
@@ -167,12 +190,12 @@ const Reviews = ({gameId}: ReviewsProps) => {
 }
 
 const $scrollView: ViewStyle = {
-  backgroundColor: colors.tokens.backgroundSurface100,
   flex: 1,
 }
 
 const $contentContainer: ViewStyle = {
   flexGrow: 1,
+  backgroundColor: colors.tokens.backgroundSurface100,
 }
 
 const $bodyWrapper: ViewStyle = {
@@ -204,10 +227,23 @@ const $descriptionWrapper: ViewStyle = {
   paddingVertical: sizes.spacing.md,
 }
 
+const $favoriteWrapper: ViewStyle = {
+  position: 'absolute',
+  right: sizes.spacing.md,
+  top: sizes.spacing.md,
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: sizes.spacing.xs,
+}
+
+const $favoriteLabel: TextStyle = {
+  color: colors.primitives.white1000,
+}
+
 const $imageBackground: ImageStyle = {
   height: 175,
   width: '100%',
-  backgroundColor: colors.tokens.backgroundSurface200,
+  backgroundColor: colors.primitives.purpleMuted400,
   borderColor: colors.tokens.borderBase,
   borderBottomWidth: sizes.border.sm,
 }
