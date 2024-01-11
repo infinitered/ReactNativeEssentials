@@ -1,23 +1,12 @@
-import React, {useLayoutEffect, useState} from 'react'
-import {
-  DevSettings,
-  Modal,
-  ScrollView,
-  TextStyle,
-  ViewStyle,
-} from 'react-native'
+import {DevSettings, Platform} from 'react-native'
 import {MMKV} from 'react-native-mmkv'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import Button from '../components/Button/solutions/chapter6'
-import Text from '../components/Text/solutions/chapter1'
-import {colors, sizes} from '../theme'
 
-export const storage = new MMKV({id: '@RNEssentials/chapter'})
+export const storage = new MMKV({id: '@RNEssentials/training'})
 
-export type WorkingFiles = (typeof workingFiles)[number]['value']
+export type AppModes = (typeof appModes)[number]['value']
 
-const workingFiles = [
-  {label: 'Go Back to Your App', value: 'main'},
+const appModes = [
+  {label: 'Assignment', value: 'assignment'},
   {label: 'Chapter 1 Solution', value: 'chapter1'},
   {label: 'Chapter 2 Solution', value: 'chapter2'},
   {label: 'Chapter 3 Solution', value: 'chapter3'},
@@ -26,88 +15,20 @@ const workingFiles = [
   {label: 'Chapter 6 Solution', value: 'chapter6'},
 ] as const
 
-export const activeFile =
-  (storage.getString('activeFile') as WorkingFiles) || 'main'
+export function setupAppModeSelector() {
+  const activeAppMode =
+    (storage.getString('appMode') as AppModes) || 'assignment'
 
-export function TrainingHelper() {
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  appModes.forEach(f => {
+    const title = ['⚈', f.label, Platform.OS === 'android' ? false : '⚈']
+      .filter(Boolean)
+      .join(' ')
 
-  const {bottom: paddingBottom} = useSafeAreaInsets()
-
-  useLayoutEffect(() => {
-    DevSettings.addMenuItem('Preview Chapter Solutions', () => {
-      setIsModalVisible(true)
+    DevSettings.addMenuItem(title, () => {
+      storage.set('appMode', f.value)
+      DevSettings.reload()
     })
-  }, [])
+  })
 
-  if (!isModalVisible) return null
-
-  return (
-    <Modal visible>
-      <ScrollView
-        style={$scrollview}
-        contentContainerStyle={[$contentContainer, {paddingBottom}]}>
-        <Text preset="display" style={$heading}>
-          Chapter Solutions
-        </Text>
-
-        <Text preset="body" style={$description}>
-          You can view the solutions for each chapter by using the buttons
-          below.
-        </Text>
-
-        {workingFiles.map(f => (
-          <Button
-            key={f.value}
-            text={f.label}
-            icon={activeFile === f.value ? 'check' : undefined}
-            style={[activeFile !== f.value && $button]}
-            onPress={() => {
-              storage.set('activeFile', f.value)
-              DevSettings.reload()
-            }}
-          />
-        ))}
-
-        <Button
-          text="Cancel"
-          style={$cancelButton}
-          onPress={() => setIsModalVisible(false)}
-        />
-      </ScrollView>
-    </Modal>
-  )
-}
-
-const $scrollview: ViewStyle = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: colors.tokens.borderAccent,
-}
-
-const $contentContainer: ViewStyle = {
-  flexGrow: 1,
-  justifyContent: 'center',
-  padding: sizes.spacing.md,
-  rowGap: sizes.spacing.md,
-}
-
-const $heading: TextStyle = {
-  color: colors.tokens.backgroundSurface100,
-}
-
-const $description: TextStyle = {
-  color: colors.tokens.backgroundSurface100,
-  marginBottom: sizes.spacing.md,
-}
-
-const $button: ViewStyle = {
-  backgroundColor: colors.tokens.backgroundSurface100,
-}
-
-const $cancelButton: ViewStyle = {
-  backgroundColor: colors.tokens.backgroundSurface200,
+  return activeAppMode
 }

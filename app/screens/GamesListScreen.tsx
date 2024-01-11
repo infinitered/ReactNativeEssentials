@@ -1,116 +1,45 @@
-import {useNavigation} from '@react-navigation/native'
-import React, {useCallback, useEffect, useMemo, useState} from 'react'
-import {SectionList, View, ViewStyle} from 'react-native'
+import React from 'react'
+import {TextStyle, View, ViewStyle} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Card} from '../components/Card'
-import {Empty} from '../components/Empty'
-import {Pill} from '../components/Pill'
-import {api} from '../../shared/services/api'
-import {useGlobalState} from '../services/state'
-import {Game} from '../../shared/services/types'
 import {colors, sizes} from '../../shared/theme'
 import {Text} from '../components/Text'
-import {Switch} from '../components/Switch'
-
-function useGameData() {
-  const {favorites, games, setGames} = useGlobalState()
-
-  const getGames = useCallback(async () => {
-    const response = await api.getGames()
-
-    if (response.ok) {
-      setGames(response.data)
-    }
-  }, [setGames])
-
-  const [filterFavorites, setFilterFavorites] = useState(false)
-
-  useEffect(() => {
-    getGames()
-  }, [getGames])
-
-  const gamesSectionList = useMemo(() => {
-    const initialValue: {[k: number]: Game[]} = {}
-    const gameListMap = games.reduce((acc, curr) => {
-      if (filterFavorites && !favorites.includes(curr.id)) return acc
-
-      const year = curr.releaseDate.y
-      if (acc[year]) {
-        acc[year].push(curr)
-      } else {
-        acc[year] = [curr]
-      }
-      return acc
-    }, initialValue)
-
-    return Object.entries(gameListMap).map(([k, v]) => ({
-      year: k,
-      key: k,
-      data: v,
-    }))
-  }, [games, favorites, filterFavorites])
-
-  return {gamesSectionList, filterFavorites, setFilterFavorites}
-}
 
 export const GamesListScreen = () => {
-  const {bottom: paddingBottom} = useSafeAreaInsets()
-  const navigation = useNavigation()
-  const {
-    gamesSectionList: games,
-    filterFavorites,
-    setFilterFavorites,
-  } = useGameData()
+  const {bottom: paddingBottom, top: paddingTop} = useSafeAreaInsets()
 
   return (
-    <>
-      <View style={$favoritesFilter}>
-        <Text preset="title1" text="Show Favorites" />
-        <Switch
-          isEnabled={filterFavorites}
-          toggleSwitch={() => setFilterFavorites(!filterFavorites)}
-        />
+    <View style={[$screen, {paddingBottom, paddingTop}]}>
+      <View style={$welcomeContainer}>
+        <Text style={$welcomeSmall}>Welcome To:</Text>
+        <Text style={$welcomeLarge}>React Native{`\n`}Essentials!</Text>
       </View>
-      <SectionList
-        sections={games}
-        style={$list}
-        keyExtractor={item => String(item.id)}
-        contentContainerStyle={[{paddingBottom}, $contentContainer]}
-        ListEmptyComponent={<Empty />}
-        initialNumToRender={6}
-        maxToRenderPerBatch={20}
-        windowSize={31}
-        renderItem={({item}) => (
-          <Card
-            onPress={() =>
-              navigation.navigate('GameDetails', {gameId: item.id})
-            }
-            name={item.name}
-            rating={item.totalRatingStars}
-            releaseDate={item.releaseDate.human}
-            imageUrl={item.cover.imageUrl}
-          />
-        )}
-        renderSectionHeader={({section: {year}}) => <Pill text={year} />}
-      />
-    </>
+      <Text style={$screenInfo}>./app/screens/GamesListScreen.tsx</Text>
+    </View>
   )
 }
 
-const $list: ViewStyle = {
+const $screen: ViewStyle = {
+  flex: 1,
   backgroundColor: colors.tokens.backgroundSurface100,
-}
-
-const $contentContainer: ViewStyle = {
-  rowGap: sizes.spacing.lg,
-  padding: sizes.spacing.md,
-}
-
-const $favoritesFilter: ViewStyle = {
-  flexDirection: 'row',
-  alignItems: 'center',
+  paddingHorizontal: sizes.spacing.md,
   justifyContent: 'space-between',
-  padding: sizes.spacing.md,
-  borderBottomColor: colors.tokens.borderBase,
-  borderBottomWidth: 2,
+}
+
+const $welcomeContainer: ViewStyle = {
+  rowGap: sizes.spacing.lg,
+  flexGrow: 1,
+  justifyContent: 'center',
+}
+
+const $welcomeSmall: TextStyle = {
+  fontSize: 18,
+}
+
+const $welcomeLarge: TextStyle = {
+  fontSize: 48,
+}
+
+const $screenInfo: TextStyle = {
+  fontSize: 12,
+  opacity: 0.5,
 }
