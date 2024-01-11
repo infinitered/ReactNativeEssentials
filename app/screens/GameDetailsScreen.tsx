@@ -60,17 +60,8 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
 
   return (
     <ScrollView
-      style={[
-        $scrollView,
-        {paddingBottom},
-        {
-          backgroundColor:
-            reviews.length > 0
-              ? colors.tokens.backgroundSurface200
-              : colors.tokens.backgroundSurface100,
-        },
-      ]}
-      contentContainerStyle={$contentContainer}>
+      style={$scrollView}
+      contentContainerStyle={[$contentContainer, {paddingBottom}]}>
       {screenshots ? (
         <Image
           blurRadius={10}
@@ -80,7 +71,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
       ) : (
         <View style={$imageBackground} />
       )}
-      {id ? (
+      {!!id && (
         <View style={$favoriteWrapper}>
           <Text
             style={$favoriteLabel}
@@ -94,7 +85,7 @@ export const GameDetailsScreen = ({route}: ScreenProps<'GameDetails'>) => {
             toggleSwitch={() => toggleFavorite(id)}
           />
         </View>
-      ) : null}
+      )}
       <View style={$bodyWrapper}>
         <View style={$headerWrapper}>
           {cover ? (
@@ -191,14 +182,15 @@ const Reviews = ({gameId, reviews}: ReviewsProps) => {
 
 const $scrollView: ViewStyle = {
   flex: 1,
+  backgroundColor: colors.tokens.backgroundSurface200,
 }
 
 const $contentContainer: ViewStyle = {
   flexGrow: 1,
-  backgroundColor: colors.tokens.backgroundSurface100,
 }
 
 const $bodyWrapper: ViewStyle = {
+  backgroundColor: colors.tokens.backgroundSurface100,
   paddingHorizontal: sizes.spacing.md,
   flexGrow: 1,
 }
@@ -269,11 +261,12 @@ const $headerWrapper: ViewStyle = {
 const $reviewsHeaderWrapper: ViewStyle = {
   padding: sizes.spacing.md,
   rowGap: sizes.spacing.md,
+  borderColor: colors.tokens.borderBase,
+  borderTopWidth: sizes.border.sm,
 }
 
 const $reviewWrapper: ViewStyle = {
   borderColor: colors.tokens.borderBase,
   borderTopWidth: sizes.border.sm,
   padding: sizes.spacing.md,
-  backgroundColor: colors.tokens.backgroundSurface200,
 }
