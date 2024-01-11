@@ -17,6 +17,7 @@ if (__DEV__) {
     console.log('Reactotron Configured'),
   )
 }
+
 const appFileRegistry = {
   assignment: AppAssignment,
   chapter1: AppChapter6,
