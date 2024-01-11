@@ -5,7 +5,7 @@ import {
   TextStyle,
   type TextProps as RNTextProps,
 } from 'react-native'
-import {colors, fonts} from '../theme'
+import {colors, fonts} from '../../shared/theme'
 
 interface TextProps extends RNTextProps {
   /**

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Switch as RNSwitch, View, ViewStyle} from 'react-native'
-import {colors} from '../theme'
+import {colors} from '../../shared/theme'
 
 interface SwitchProps {
   isEnabled: boolean

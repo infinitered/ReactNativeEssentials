@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react'
 import {MMKV} from 'react-native-mmkv'
-import {safeParse} from '../utils/safeParse'
+import {safeParse} from '../../shared/utils/safeParse'
 import {
   type AppendReview,
   type Favorites,
@@ -14,7 +14,7 @@ import {
   type GlobalStateContextData,
   type Reviews,
   type ToggleFavorite,
-} from './types'
+} from '../../shared/services/types'
 
 export const storage = new MMKV({id: '@RNEssentials/global/state'})
 

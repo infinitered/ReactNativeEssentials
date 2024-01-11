@@ -6,7 +6,7 @@ import {
   type ImageStyle,
   type ViewStyle,
 } from 'react-native'
-import {colors, sizes} from '../theme'
+import {colors, sizes} from '../../shared/theme'
 import {Icon} from './Icon'
 import {Text} from './Text'
 

@@ -1,6 +1,6 @@
 import FeatherIcons from '@expo/vector-icons/Feather'
 import React from 'react'
-import {colors} from '../theme'
+import {colors} from '../../shared/theme'
 
 export interface IconProps {
   name: keyof typeof FeatherIcons.glyphMap

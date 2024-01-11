@@ -16,12 +16,12 @@ import {
 } from '@react-navigation/native-stack'
 import React from 'react'
 import {Pressable, useColorScheme, type ViewStyle} from 'react-native'
-import {GameDetailsScreen} from '../screens/GameDetailsScreen/GameDetailsScreen'
-import {GamesListScreen} from '../screens/GamesListScreen/GamesListScreen'
-import {ReviewScreen} from '../screens/ReviewScreen/ReviewScreen'
+import {GameDetailsScreen} from '../screens/GameDetailsScreen'
+import {GamesListScreen} from '../screens/GamesListScreen'
+import {ReviewScreen} from '../screens/ReviewScreen'
 import {MMKV} from 'react-native-mmkv'
-import {safeParse} from '../utils/safeParse'
-import {colors, fonts, sizes} from '../theme'
+import {safeParse} from '../../shared/utils/safeParse'
+import {colors, fonts, sizes} from '../../shared/theme'
 import {Icon} from '../components/Icon'
 
 export const storage = new MMKV({id: '@RNEssentials/navigation/state'})
@@ -47,11 +47,14 @@ export type AppStackParamList = {
   Review: {gameId: number}
 }
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>
-
 export type ScreenProps<T extends keyof AppStackParamList> =
   NativeStackScreenProps<AppStackParamList, T>
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends AppStackParamList {}
+  }
+}
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()

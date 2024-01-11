@@ -7,14 +7,7 @@ import {
 } from 'react-native-safe-area-context'
 import {AppNavigator} from './navigators/AppNavigator'
 import {GlobalStateProvider} from './services/state'
-import {customFontsToLoad} from './theme'
-import {setupMockServer} from '../msw'
-
-setupMockServer()
-
-if (__DEV__) {
-  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
-}
+import {customFontsToLoad} from '../shared/theme'
 
 const App = (): React.JSX.Element | null => {
   const [areFontsLoaded] = useFonts(customFontsToLoad)

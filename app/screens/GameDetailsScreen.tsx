@@ -8,17 +8,17 @@ import {
   type ViewStyle,
 } from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Button} from '../../components/Button'
-import {Empty} from '../../components/Empty'
-import {Icon} from '../../components/Icon'
-import {Text} from '../../components/Text'
-import {type ScreenProps} from '../../navigators/AppNavigator'
-import {api} from '../../services/api'
-import {useGlobalState} from '../../services/state'
-import {Game, type Reviews} from '../../services/types'
-import {colors, sizes} from '../../theme'
+import {Button} from '../components/Button'
+import {Empty} from '../components/Empty'
+import {Icon} from '../components/Icon'
+import {Text} from '../components/Text'
+import {type ScreenProps} from '../navigators/AppNavigator'
+import {api} from '../../shared/services/api'
+import {useGlobalState} from '../services/state'
+import {Game, type Reviews} from '../../shared/services/types'
+import {colors, sizes} from '../../shared/theme'
 import {useNavigation} from '@react-navigation/native'
-import {Switch} from '../../components/Switch'
+import {Switch} from '../components/Switch'
 
 interface ReviewsProps {
   gameId: number
@@ -243,7 +243,7 @@ const $favoriteLabel: TextStyle = {
 const $imageBackground: ImageStyle = {
   height: 175,
   width: '100%',
-  backgroundColor: colors.primitives.purpleMuted400,
+  backgroundColor: colors.tokens.backgroundSurface200,
   borderColor: colors.tokens.borderBase,
   borderBottomWidth: sizes.border.sm,
 }
