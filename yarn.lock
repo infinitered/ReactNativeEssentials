@@ -8153,11 +8153,6 @@ react-native-safe-area-context@^4.8.2:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.8.2.tgz#e6b3d8acf3c6afcb4b5db03a97f9c37df7668f65"
   integrity sha512-ffUOv8BJQ6RqO3nLml5gxJ6ab3EestPiyWekxdzO/1MQ7NF8fW1Mzh1C5QE9yq573Xefnc7FuzGXjtesZGv7cQ==
 
-react-native-screen-corner-radius@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/react-native-screen-corner-radius/-/react-native-screen-corner-radius-0.2.2.tgz#142585bbdb647a30f04b9383f53bc9090b6338bd"
-  integrity sha512-q1M91oUfPyE9s0sfpKD0qkfCrA3DnBq4DMgMn8Xr1FeP+GLGNtuoi4Cl9zilPMvEHX232683d714EzmOaoiO0Q==
-
 react-native-screens@^3.29.0:
   version "3.29.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.29.0.tgz#1dee0326defbc1d4ef4e68287abb32a8e6b76b29"

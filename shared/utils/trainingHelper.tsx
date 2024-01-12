@@ -8,12 +8,11 @@ import {
   ViewStyle,
 } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
-import { ScreenCornerRadius as screenRadius } from 'react-native-screen-corner-radius/src'
 
 import { Text } from '../../solutions/chapter7/components/Text'
 import { colors, fonts } from '../theme'
 
-export const storage = new MMKV({ id: '@RNEssentials/training' })
+const storage = new MMKV({ id: '@RNEssentials/training' })
 
 export type AppModes = (typeof appModes)[number]['value']
 
@@ -83,7 +82,7 @@ export function TrainingOverlay({ appMode }: { appMode: AppModes }) {
             key={i}
             text={Array.from({ length: 6 }, () => label).join('       ')}
             preset="body"
-            style={[$solutionLabel, { top: i === 0 ? -2 : 2 }]} // eslint-disable-line react-native/no-inline-styles
+            style={$solutionLabel}
           />
         </Pressable>
       ))}
@@ -99,16 +98,13 @@ const $solutionOverlay: ViewStyle = {
   top: 0,
   left: 0,
   right: 0,
-  borderColor: colors.tint.accent,
-  borderWidth: 4,
   justifyContent: 'space-between',
-  borderRadius: screenRadius,
   overflow: 'hidden',
 }
 
 const $solutionWrapper: ViewStyle = {
   width: '100%',
-  height: 16,
+  height: 18,
   backgroundColor: colors.tint.accent,
   alignItems: 'center',
   justifyContent: 'center',
