@@ -4,12 +4,18 @@
 
 import {AppRegistry} from 'react-native'
 import {name as appName} from './app.json'
-import {setupMockServer} from './msw'
 import AppAssignment from './app/App'
-import AppChapter7 from './solutions/chapter7/App'
+import {setupMockServer} from './msw'
 import {setupAppModeSelector} from './shared/utils/trainingHelper'
+import AppChapter7 from './solutions/chapter7/App'
+
+import {useFonts} from 'expo-font'
+import React, {useEffect} from 'react'
+import BootSplash from 'react-native-bootsplash'
+import {customFontsToLoad} from './shared/theme'
 
 const activeAppMode = setupAppModeSelector()
+
 setupMockServer()
 
 if (__DEV__) {
@@ -29,6 +35,20 @@ const appFileRegistry = {
   chapter7: AppChapter7,
 }
 
-const App = appFileRegistry[activeAppMode]
+const AppMode = appFileRegistry[activeAppMode]
+
+function App() {
+  const [areFontsLoaded] = useFonts(customFontsToLoad)
+
+  useEffect(() => {
+    setTimeout(() => {
+      BootSplash.hide({fade: true})
+    }, 500)
+  }, [areFontsLoaded])
+
+  if (!areFontsLoaded) return null
+
+  return <AppMode />
+}
 
 AppRegistry.registerComponent(appName, () => App)
