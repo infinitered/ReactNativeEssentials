@@ -41,6 +41,7 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
             multiline
             value={value}
             onChangeText={setValue}
+            placeholderTextColor={colors.text.baseMuted}
           />
         </View>
         <View style={$formActions}>

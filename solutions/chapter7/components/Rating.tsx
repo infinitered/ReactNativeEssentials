@@ -35,6 +35,5 @@ const $container: ViewStyle = {
 }
 
 const $label: TextStyle = {
-  lineHeight: 24,
   bottom: -2,
 }
