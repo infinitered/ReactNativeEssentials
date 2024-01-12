@@ -1,12 +1,5 @@
-import React, { useMemo, useRef } from 'react'
-import {
-  Animated,
-  DevSettings,
-  Platform,
-  Pressable,
-  TextStyle,
-  ViewStyle,
-} from 'react-native'
+import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react'
+import { DevSettings, Platform, TextStyle } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { Text } from '../../solutions/chapter7/components/Text'
@@ -50,70 +43,53 @@ export function setupTrainingAppModeSelector() {
   return activeAppMode
 }
 
-export function TrainingOverlay({ appMode }: { appMode: AppModes }) {
-  const opacity = useRef(new Animated.Value(1)).current
+export function TrainingBanners({
+  appMode,
+  children,
+}: PropsWithChildren<{ appMode: AppModes }>) {
+  const [bannerVisible, setBannersVisible] = useState(true)
 
-  const label = useMemo(
-    () => appModes.find(f => f.value === appMode)?.label,
-    [appMode],
+  const label = useMemo(() => {
+    const l = appModes.find(f => f.value === appMode)?.label
+
+    if (!l) return null
+
+    return Array.from({ length: 6 }, () => l).join('       ')
+  }, [appMode])
+
+  const Banner = useCallback(
+    () => (
+      <Text
+        text={label ?? ''}
+        preset="body"
+        style={$solutionLabel}
+        numberOfLines={1}
+        ellipsizeMode="clip"
+        onPress={() => setBannersVisible(false)}
+      />
+    ),
+    [label],
   )
 
-  function toggleOverlay() {
-    // @ts-expect-error -- __getValue is private
-    const nextValue = opacity.__getValue() === 1 ? 0 : 1
-
-    Animated.timing(opacity, {
-      toValue: nextValue,
-      duration: 350,
-      useNativeDriver: true,
-    }).start()
-  }
-
-  if (appMode === 'assignment') return null
-  if (!label) return null
+  if (appMode === 'assignment') return children
+  if (!label) return children
 
   return (
-    <Animated.View
-      pointerEvents="box-none"
-      style={[$solutionOverlay, { opacity }]}>
-      {Array.from({ length: 2 }).map((_, i) => (
-        <Pressable onPress={toggleOverlay} key={i} style={$solutionWrapper}>
-          <Text
-            key={i}
-            text={Array.from({ length: 6 }, () => label).join('       ')}
-            preset="body"
-            style={$solutionLabel}
-          />
-        </Pressable>
-      ))}
-    </Animated.View>
+    <>
+      {bannerVisible && <Banner />}
+      {children}
+      {bannerVisible && <Banner />}
+    </>
   )
-}
-
-const $solutionOverlay: ViewStyle = {
-  width: '100%',
-  height: '100%',
-  bottom: 0,
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  justifyContent: 'space-between',
-  overflow: 'hidden',
-}
-
-const $solutionWrapper: ViewStyle = {
-  width: '100%',
-  height: 18,
-  backgroundColor: colors.tint.accent,
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'row',
 }
 
 const $solutionLabel: TextStyle = {
+  width: '100%',
   color: colors.text.overlay,
   fontSize: 12,
-  lineHeight: 12,
+  lineHeight: 18,
+  height: 18,
   fontFamily: fonts.primary.bold,
+  textAlign: 'center',
+  backgroundColor: colors.tint.accent,
 }

@@ -13,7 +13,7 @@ import { setupMockServer } from './msw'
 import { customFontsToLoad } from './shared/theme'
 import {
   setupTrainingAppModeSelector,
-  TrainingOverlay,
+  TrainingBanners,
 } from './shared/utils/trainingHelper'
 import AppChapter7 from './solutions/chapter7/App'
 
@@ -52,10 +52,9 @@ function App() {
   if (!areFontsLoaded) return null
 
   return (
-    <>
+    <TrainingBanners appMode={activeAppMode}>
       <AppMode />
-      <TrainingOverlay appMode={activeAppMode} />
-    </>
+    </TrainingBanners>
   )
 }
 
