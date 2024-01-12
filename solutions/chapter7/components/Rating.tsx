@@ -22,7 +22,7 @@ export const Rating = ({ rating, ratingsCount }: RatingProps) => {
     <View style={$container}>
       <Text style={$label} preset="label2" text={`${label}:`} />
       {Array.from({ length: rating }).map((_, i) => (
-        <Icon color={colors.tokens.borderRatingActive} key={i} name="star" />
+        <Icon color={colors.tint.accent} key={i} name="star" />
       ))}
     </View>
   )

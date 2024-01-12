@@ -42,8 +42,8 @@ export const Card = (props: CardProps) => {
 }
 
 const $card: ViewStyle = {
-  backgroundColor: colors.tokens.backgroundButtonBase,
-  borderColor: colors.tokens.borderBase,
+  backgroundColor: colors.background.brand,
+  borderColor: colors.border.base,
   borderRadius: sizes.radius.md,
   borderWidth: sizes.border.sm,
   flexDirection: 'row',
@@ -52,7 +52,7 @@ const $card: ViewStyle = {
 }
 
 const $reflection: ViewStyle = {
-  backgroundColor: colors.tokens.backgroundButtonReflectionPressed,
+  backgroundColor: colors.background.reflection,
   borderRadius: sizes.radius.md,
   bottom: -6,
   height: '100%',
@@ -68,7 +68,7 @@ const $contentWrapper: ViewStyle = {
 }
 
 const $image: ImageStyle = {
-  borderColor: colors.tokens.borderBase,
+  borderColor: colors.border.base,
   borderRadius: sizes.radius.sm,
   borderWidth: sizes.border.sm,
   height: 120,

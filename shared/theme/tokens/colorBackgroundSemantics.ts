@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Fri, 12 Jan 2024 03:45:25 GMT
+ * Generated on Fri, 12 Jan 2024 04:20:14 GMT
  */
 
 export const primary = '#ffffffff'

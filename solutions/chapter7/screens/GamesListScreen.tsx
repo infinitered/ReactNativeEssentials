@@ -102,7 +102,7 @@ export const GamesListScreen = () => {
 }
 
 const $list: ViewStyle = {
-  backgroundColor: colors.tokens.backgroundSurface100,
+  backgroundColor: colors.background.primary,
 }
 
 const $contentContainer: ViewStyle = {
@@ -115,7 +115,7 @@ const $favoritesFilter: ViewStyle = {
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: sizes.spacing.md,
-  borderBottomColor: colors.tokens.borderBase,
+  borderBottomColor: colors.border.base,
   borderBottomWidth: 2,
-  backgroundColor: colors.tokens.backgroundSurface200,
+  backgroundColor: colors.background.secondary,
 }

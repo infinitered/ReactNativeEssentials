@@ -2,7 +2,7 @@
 set -e 
 
 # Runs tsc.
-tsc ./index.js --skipLibCheck --noEmit --jsx react-native --esModuleInterop --allowJs
+tsc ./index.js --skipLibCheck --noEmit --jsx react-native --esModuleInterop --allowJs --resolveJsonModule
 
 # Runs eslint (and eslint prettier plugin) for the specified extensions.
 eslint . --fix --ext .js,.ts,.tsx,.cjs,.mjs --cache

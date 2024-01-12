@@ -14,19 +14,15 @@ export const Switch = (props: SwitchProps) => {
     <View style={$container}>
       <RNSwitch
         ios_backgroundColor={
-          isEnabled
-            ? colors.tokens.backgroundSwitchTrackOn
-            : colors.tokens.backgroundSwitchTrackOff
+          isEnabled ? colors.background.accent : colors.background.accentMuted
         }
         onValueChange={toggleSwitch}
         thumbColor={
-          isEnabled
-            ? colors.tokens.backgroundSwitchThumbOn
-            : colors.tokens.backgroundSwitchThumbOff
+          isEnabled ? colors.background.brand : colors.background.accent
         }
         trackColor={{
-          false: colors.tokens.backgroundSwitchTrackOff,
-          true: colors.tokens.backgroundSwitchTrackOn,
+          false: colors.background.accentMuted,
+          true: colors.background.accent,
         }}
         value={isEnabled}
       />
