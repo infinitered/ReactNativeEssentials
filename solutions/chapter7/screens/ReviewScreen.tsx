@@ -60,7 +60,10 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
 
 const $modal: ViewStyle = {
   flex: 1,
-  backgroundColor: colors.background.brand,
+  backgroundColor: colors.manipulators.changeHexAlpha(
+    colors.background.brand,
+    75,
+  ),
 }
 
 const $container: ViewStyle = {
