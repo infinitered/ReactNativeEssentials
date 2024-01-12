@@ -81,10 +81,10 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
             text="Add to Favorites"
           />
           <Switch
-            isEnabled={Boolean(
+            on={Boolean(
               favorites.find(favoriteGameId => favoriteGameId === id),
             )}
-            toggleSwitch={() => toggleFavorite(id)}
+            onToggle={() => toggleFavorite(id)}
           />
         </View>
       )}

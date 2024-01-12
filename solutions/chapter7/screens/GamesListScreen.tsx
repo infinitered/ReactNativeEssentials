@@ -68,8 +68,8 @@ export const GamesListScreen = () => {
       <View style={$favoritesFilter}>
         <Text preset="title1" text="Show Favorites" />
         <Switch
-          isEnabled={filterFavorites}
-          toggleSwitch={() => setFilterFavorites(!filterFavorites)}
+          on={filterFavorites}
+          onToggle={() => setFilterFavorites(!filterFavorites)}
         />
       </View>
       <SectionList
