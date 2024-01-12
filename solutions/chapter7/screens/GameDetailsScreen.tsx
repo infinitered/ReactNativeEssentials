@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Image,
   type ImageStyle,
@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { api } from '../../../shared/services/api'
 import { Game, type Reviews } from '../../../shared/services/types'
 import { colors, sizes } from '../../../shared/theme'
+import { shuffleArray } from '../../../shared/utils/shuffleArray'
 import { Button } from '../components/Button'
 import { Empty } from '../components/Empty'
 import { Rating } from '../components/Rating'
@@ -50,7 +51,6 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   const {
     id,
     cover,
-    screenshots,
     name,
     releaseDate,
     genres,
@@ -60,14 +60,18 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
     summary,
   } = game ?? {}
 
+  const screenshot = useMemo(() => {
+    return shuffleArray(game?.screenshots ?? [])?.[0]
+  }, [game])
+
   return (
     <ScrollView
       style={$scrollView}
       contentContainerStyle={[$contentContainer, { paddingBottom }]}>
-      {screenshots ? (
+      {screenshot ? (
         <Image
           blurRadius={10}
-          source={{ uri: screenshots?.[0].imageUrl }}
+          source={{ uri: screenshot.imageUrl }}
           style={$imageBackground}
         />
       ) : (
@@ -222,6 +226,9 @@ const $favoriteWrapper: ViewStyle = {
 
 const $favoriteLabel: TextStyle = {
   color: colors.text.overlay,
+  textShadowColor: colors.manipulators.changeHexAlpha(colors.text.base, 40),
+  textShadowOffset: { width: 0, height: 1 },
+  textShadowRadius: 1,
 }
 
 const $imageBackground: ImageStyle = {

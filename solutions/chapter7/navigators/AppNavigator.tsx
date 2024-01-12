@@ -24,7 +24,7 @@ import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
 
-export const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
+const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
 
 const initNavigation = safeParse(storage.getString('state'), undefined)
 
