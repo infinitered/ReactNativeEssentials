@@ -53,25 +53,10 @@ const figmaVariablesCollections = Object.entries(figmaVariables).map(
 
 const designTokens = deepmerge.all(Object.values(figmaVariablesCollections))
 
-// eslint-disable-next-line no-unused-vars
-function isPrimitiveToken(token) {
-  return (
-    token.original.extensions.ReactNativeEssentials.collectionName ===
-    'primitives'
-  )
-}
-
 function isSemanticToken(token) {
   return (
     token.original.extensions.ReactNativeEssentials.collectionName ===
     'semantics'
-  )
-}
-
-// eslint-disable-next-line no-unused-vars
-function isFunctionalToken(token) {
-  return (
-    token.original.extensions.ReactNativeEssentials.collectionName === 'tokens'
   )
 }
 
@@ -157,39 +142,5 @@ module.exports = {
         }),
       ],
     },
-    // 'color: primitives & tokens': {
-    //   transforms: ['attribute/cti', 'name/ti/camel/strip', 'color/hex8'],
-    //   buildPath: './shared/theme/tokens/',
-    //   options: { stripFromPath: ['color'] },
-    //   files: [
-    //     createFileConfig({
-    //       category: 'color',
-    //       tokenPredicateFn: isPrimitiveToken,
-    //       fileName: 'colorPrimitives.ts',
-    //     }),
-    //     createFileConfig({
-    //       category: 'color',
-    //       tokenPredicateFn: isFunctionalToken,
-    //       fileName: 'colorTokens.ts',
-    //     }),
-    //   ],
-    // },
-    // 'size: primitives & tokens': {
-    //   transforms: ['attribute/cti', 'name/ti/camel/strip'],
-    //   buildPath: './shared/theme/tokens/',
-    //   options: { stripFromPath: ['size'] },
-    //   files: [
-    //     createFileConfig({
-    //       category: 'size',
-    //       tokenPredicateFn: isPrimitiveToken,
-    //       fileName: 'sizePrimitives.ts',
-    //     }),
-    //     createFileConfig({
-    //       category: 'size',
-    //       tokenPredicateFn: isFunctionalToken,
-    //       fileName: 'sizeTokens.ts',
-    //     }),
-    //   ],
-    // },
   },
 }
