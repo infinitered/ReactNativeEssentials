@@ -77,8 +77,8 @@ const $reflection: ViewStyle = {
   position: 'absolute',
   width: '100%',
   height: '100%',
-  bottom: -sizes.tokens.spacingButtonReflectionOffset,
-  right: -sizes.tokens.spacingButtonReflectionOffset,
+  bottom: -6,
+  right: -6,
   borderRadius: sizes.radius.md,
   backgroundColor: colors.tokens.backgroundButtonReflectionBase,
 }

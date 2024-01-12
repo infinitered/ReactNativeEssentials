@@ -54,10 +54,10 @@ const $card: ViewStyle = {
 const $reflection: ViewStyle = {
   backgroundColor: colors.tokens.backgroundButtonReflectionPressed,
   borderRadius: sizes.radius.md,
-  bottom: -sizes.tokens.spacingButtonReflectionOffset,
+  bottom: -6,
   height: '100%',
   position: 'absolute',
-  right: -sizes.tokens.spacingButtonReflectionOffset,
+  right: -6,
   width: '100%',
 }
 

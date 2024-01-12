@@ -1,22 +1,19 @@
-import * as colorPrimitives from './tokens/colorPrimitives'
-import * as colorTokens from './tokens/colorTokens'
+// import * as colorPrimitives from './tokens/colorPrimitives'
+import * as colorBackgroundSemantics from './tokens/colorBackgroundSemantics'
 import * as sizeBorderSemantics from './tokens/sizeBorderSemantics'
-import * as sizePrimitives from './tokens/sizePrimitives'
 import * as sizeRadiusSemantics from './tokens/sizeRadiusSemantics'
 import * as sizeSpacingSemantics from './tokens/sizeSpacingSemantics'
-import * as sizeTokens from './tokens/sizeTokens'
 
 const colors = {
-  primitives: colorPrimitives,
-  tokens: colorTokens,
+  // primitives: colorPrimitives,
+  // tokens: colorTokens,
+  background: colorBackgroundSemantics,
 }
 
 const sizes = {
-  primitives: sizePrimitives,
   radius: sizeRadiusSemantics,
   border: sizeBorderSemantics,
   spacing: sizeSpacingSemantics,
-  tokens: sizeTokens,
 }
 
 export { colors, sizes }

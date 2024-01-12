@@ -53,6 +53,7 @@ const figmaVariablesCollections = Object.entries(figmaVariables).map(
 
 const designTokens = deepmerge.all(Object.values(figmaVariablesCollections))
 
+// eslint-disable-next-line no-unused-vars
 function isPrimitiveToken(token) {
   return (
     token.original.extensions.ReactNativeEssentials.collectionName ===
@@ -67,49 +68,68 @@ function isSemanticToken(token) {
   )
 }
 
+// eslint-disable-next-line no-unused-vars
 function isFunctionalToken(token) {
   return (
     token.original.extensions.ReactNativeEssentials.collectionName === 'tokens'
   )
 }
 
+/**
+ * Generates a file configuration object for design tokens.
+ *
+ * @param {Object} params - The parameters for file configuration.
+ * @param {'color' | 'size'} params.category - The category of the token.
+ * @param {'background' | 'border' | 'text' | 'tint' | 'spacing' | 'radius'} params.type - The type of the token.
+ * @param {function} params.tokenPredicateFn - A function that takes a token and returns a boolean indicating whether the token should be included.
+ * @param {string} params.fileName - The name of the file to which the tokens will be written.
+ * @returns {Object} An object containing the format, destination, and filter function for the design tokens.
+ */
+function createFileConfig({ category, type, tokenPredicateFn, fileName }) {
+  return {
+    format: 'javascript/es6',
+    destination: fileName,
+    filter: token =>
+      (category ? token.attributes.category === category : true) &&
+      (type ? token.attributes.type === type : true) &&
+      (tokenPredicateFn ? tokenPredicateFn(token) : true),
+  }
+}
+
 module.exports = {
   tokens: designTokens,
   platforms: {
-    'color: primitives & tokens': {
+    'color: semantics': {
       transforms: ['attribute/cti', 'name/ti/camel/strip', 'color/hex8'],
       buildPath: './shared/theme/tokens/',
-      options: { stripFromPath: ['color'] },
+      options: {
+        stripFromPath: ['color', 'background', 'tint', 'text', 'border'],
+      },
       files: [
-        {
-          format: 'javascript/es6',
-          destination: 'colorPrimitives.ts',
-          filter: token => token.type === 'color' && isPrimitiveToken(token),
-        },
-        {
-          format: 'javascript/es6',
-          destination: 'colorTokens.ts',
-          filter: token => token.type === 'color' && isFunctionalToken(token),
-        },
-      ],
-    },
-    'size: primitives & tokens': {
-      transforms: ['attribute/cti', 'name/ti/camel/strip'],
-      buildPath: './shared/theme/tokens/',
-      options: { stripFromPath: ['size'] },
-      files: [
-        {
-          format: 'javascript/es6',
-          destination: 'sizePrimitives.ts',
-          filter: token =>
-            token.type === 'dimension' && isPrimitiveToken(token),
-        },
-        {
-          format: 'javascript/es6',
-          destination: 'sizeTokens.ts',
-          filter: token =>
-            token.type === 'dimension' && isFunctionalToken(token),
-        },
+        createFileConfig({
+          category: 'color',
+          type: 'background',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'colorBackgroundSemantics.ts',
+        }),
+        createFileConfig({
+          category: 'color',
+          type: 'tint',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'colorTintSemantics.ts',
+        }),
+        createFileConfig({
+          category: 'color',
+          type: 'text',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'colorTextSemantics.ts',
+        }),
+        createFileConfig({
+          category: 'color',
+          type: 'border',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'colorBorderSemantics.ts',
+        }),
       ],
     },
     'size: semantics': {
@@ -117,31 +137,59 @@ module.exports = {
       buildPath: './shared/theme/tokens/',
       options: { stripFromPath: ['size', 'spacing', 'radius', 'border'] },
       files: [
-        {
-          format: 'javascript/es6',
-          destination: 'sizeSpacingSemantics.ts',
-          filter: token =>
-            token.type === 'dimension' &&
-            token.path.includes('spacing') &&
-            isSemanticToken(token),
-        },
-        {
-          format: 'javascript/es6',
-          destination: 'sizeRadiusSemantics.ts',
-          filter: token =>
-            token.type === 'dimension' &&
-            token.path.includes('radius') &&
-            isSemanticToken(token),
-        },
-        {
-          format: 'javascript/es6',
-          destination: 'sizeBorderSemantics.ts',
-          filter: token =>
-            token.type === 'dimension' &&
-            token.path.includes('border') &&
-            isSemanticToken(token),
-        },
+        createFileConfig({
+          category: 'size',
+          type: 'spacing',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'sizeSpacingSemantics.ts',
+        }),
+        createFileConfig({
+          category: 'size',
+          type: 'radius',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'sizeRadiusSemantics.ts',
+        }),
+        createFileConfig({
+          category: 'size',
+          type: 'border',
+          tokenPredicateFn: isSemanticToken,
+          fileName: 'sizeBorderSemantics.ts',
+        }),
       ],
     },
+    // 'color: primitives & tokens': {
+    //   transforms: ['attribute/cti', 'name/ti/camel/strip', 'color/hex8'],
+    //   buildPath: './shared/theme/tokens/',
+    //   options: { stripFromPath: ['color'] },
+    //   files: [
+    //     createFileConfig({
+    //       category: 'color',
+    //       tokenPredicateFn: isPrimitiveToken,
+    //       fileName: 'colorPrimitives.ts',
+    //     }),
+    //     createFileConfig({
+    //       category: 'color',
+    //       tokenPredicateFn: isFunctionalToken,
+    //       fileName: 'colorTokens.ts',
+    //     }),
+    //   ],
+    // },
+    // 'size: primitives & tokens': {
+    //   transforms: ['attribute/cti', 'name/ti/camel/strip'],
+    //   buildPath: './shared/theme/tokens/',
+    //   options: { stripFromPath: ['size'] },
+    //   files: [
+    //     createFileConfig({
+    //       category: 'size',
+    //       tokenPredicateFn: isPrimitiveToken,
+    //       fileName: 'sizePrimitives.ts',
+    //     }),
+    //     createFileConfig({
+    //       category: 'size',
+    //       tokenPredicateFn: isFunctionalToken,
+    //       fileName: 'sizeTokens.ts',
+    //     }),
+    //   ],
+    // },
   },
 }
