@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Image,
   type ImageStyle,
@@ -13,7 +13,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { api } from '../../../shared/services/api'
 import { Game, type Reviews } from '../../../shared/services/types'
 import { colors, sizes } from '../../../shared/theme'
-import { shuffleArray } from '../../../shared/utils/shuffleArray'
 import { Button } from '../components/Button'
 import { Empty } from '../components/Empty'
 import { Rating } from '../components/Rating'
@@ -54,24 +53,21 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
     name,
     releaseDate,
     genres,
+    screenshots,
     involvedCompanies,
     totalRatingStars,
     totalRatingCount,
     summary,
   } = game ?? {}
 
-  const screenshot = useMemo(() => {
-    return shuffleArray(game?.screenshots ?? [])?.[0]
-  }, [game])
-
   return (
     <ScrollView
       style={$scrollView}
       contentContainerStyle={[$contentContainer, { paddingBottom }]}>
-      {screenshot ? (
+      {screenshots ? (
         <Image
           blurRadius={10}
-          source={{ uri: screenshot.imageUrl }}
+          source={{ uri: screenshots[0]?.imageUrl }}
           style={$imageBackground}
         />
       ) : (
