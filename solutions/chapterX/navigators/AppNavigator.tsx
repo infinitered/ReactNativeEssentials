@@ -166,7 +166,7 @@ export const AppNavigator = (props: NavigationProps) => {
             actions: [
               {
                 title: 'Review Game',
-                input: true,
+                input: true, // Android 14 has issues with input quick actions: https://github.com/invertase/notifee/issues/1002
                 pressAction: { id: NotificationPressAction.SubmitReview },
               },
             ],
