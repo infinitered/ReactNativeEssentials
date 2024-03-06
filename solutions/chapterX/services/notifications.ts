@@ -116,7 +116,8 @@ export async function setupNotifications() {
   const permissionResponse = await notifee.requestPermission()
 
   if (
-    permissionResponse.authorizationStatus === AuthorizationStatus.AUTHORIZED
+    permissionResponse.authorizationStatus === AuthorizationStatus.AUTHORIZED ||
+    permissionResponse.authorizationStatus === AuthorizationStatus.PROVISIONAL
   ) {
     notifee.setNotificationCategories(iosCategories)
     notifee.createChannels(androidChannels)

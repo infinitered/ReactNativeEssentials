@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "218582550283",
+    "project_id": "react-native-essentials",
+    "storage_bucket": "react-native-essentials.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218582550283:android:a31af9818f171c8f23440e",
+        "android_client_info": {
+          "package_name": "red.infinite.reactnativeessentials"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf1YeInNdNevgx-aGOJRxmyMw9EsAIVo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
