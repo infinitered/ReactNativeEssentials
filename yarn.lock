@@ -6793,6 +6793,11 @@ react-native-bootsplash@^5.4.1:
     ts-dedent "^2.2.0"
     xml-formatter "^3.6.0"
 
+react-native-contacts@^7.0.8:
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-7.0.8.tgz#485ba7a77653b30205c76f96494808d07b8e57b9"
+  integrity sha512-Zfkdpw1uQVRb8v1m+ogknzjyfEs9k63o2sPAYvxZ8ZJff31D45G8+uZb6VcM4tIe3ELH9EDvh93nd515kFvRYQ==
+
 react-native-flipper@^0.164.0:
   version "0.164.0"
   resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.164.0.tgz#64f6269a86a13a72e30f53ba9f5281d2073a7697"
