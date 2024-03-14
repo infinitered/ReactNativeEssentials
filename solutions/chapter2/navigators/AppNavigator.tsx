@@ -2,7 +2,6 @@ import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
-  NavigationHelpers,
 } from '@react-navigation/native'
 import {
   createNativeStackNavigator,
@@ -19,7 +18,7 @@ import { MMKV } from 'react-native-mmkv'
 
 import { colors, fonts, sizes } from '../../../shared/theme'
 import { safeParse } from '../../../shared/utils/object'
-import { Icon } from '../components/Icon'
+import { Icon, IconProps } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 
@@ -58,17 +57,21 @@ declare global {
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
-const renderBackButton = (navigation: NavigationHelpers<AppStackParamList>) => {
+function renderIconButton(props: IconProps & { onPress?: () => void }) {
+  const {
+    name,
+    onPress,
+    color = colors.tint.base,
+    size = Platform.select({ ios: 24, android: 30 }),
+  } = props
+
+  if (!name) return null
+  if (!onPress) return null
+
   return (
-    navigation.canGoBack() && (
-      <Pressable style={$backButton} onPress={() => navigation.goBack()}>
-        <Icon
-          name="arrow-left-circle"
-          size={Platform.select({ ios: 24, android: 30 })}
-          color={colors.tint.base}
-        />
-      </Pressable>
-    )
+    <Pressable style={$backButton} onPress={onPress}>
+      <Icon name={name} size={size} color={color} />
+    </Pressable>
   )
 }
 
@@ -81,7 +84,11 @@ const AppStack = () => {
           borderTopColor: colors.border.base,
           borderTopWidth: 2,
         },
-        headerLeft: () => renderBackButton(navigation),
+        headerLeft: ({ canGoBack }) =>
+          renderIconButton({
+            name: 'arrow-left-circle',
+            onPress: canGoBack ? navigation.goBack : undefined,
+          }),
         headerStyle: {
           backgroundColor: colors.background.brand,
         },
