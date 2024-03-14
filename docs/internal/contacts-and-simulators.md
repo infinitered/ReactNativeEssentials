@@ -1,6 +1,6 @@
 # Contacts & Simulators / Emulators
 
-The default iOS simulator comes with a handful of placeholder contacts by out of the box. On Android, a fresh emulator has 0 contacts. Here are the steps to generate and import more contacts into your Simulator and/or emulator to have a larger dataset to work with for your app testing.
+The default iOS simulator comes with a handful of placeholder contacts out of the box. On Android, a fresh emulator has 0 contacts. Here are the steps to generate and import more contacts into your Simulator and/or emulator to have a larger dataset to work with for your app testing.
 
 ## Generating Contacts
 
