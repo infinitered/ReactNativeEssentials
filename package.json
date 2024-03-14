@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "clean": "./scripts/clean",
     "generate:tokens": "style-dictionary build --config ./sd.config.js",
+    "generate:vcard": "./scripts/generate/vcard.mjs",
     "postinstall": "./scripts/postinstall",
     "ios": "react-native run-ios",
     "lint": "./scripts/tsc-lint-format",
