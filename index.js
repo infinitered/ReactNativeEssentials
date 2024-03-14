@@ -7,20 +7,11 @@ import { AppRegistry } from 'react-native'
 import BootSplash from 'react-native-bootsplash'
 
 import { name as appName } from './app.json'
-import AppAssignment from './app/App'
 import { setupMockServer } from './msw'
 import {
   setupTrainingAppModeSelector,
   TrainingBanner,
 } from './shared/utils/trainingHelper'
-import AppChapter1 from './solutions/chapter1/App'
-import AppChapter2 from './solutions/chapter2/App'
-import AppChapter3 from './solutions/chapter3/App'
-import AppChapter4 from './solutions/chapter4/App'
-import AppChapter5 from './solutions/chapter5/App'
-import AppChapter6 from './solutions/chapter6/App'
-import AppChapter7 from './solutions/chapter7/App'
-import AppChapterX from './solutions/chapterX/App'
 
 const activeAppMode = setupTrainingAppModeSelector()
 
@@ -33,18 +24,18 @@ if (__DEV__) {
 }
 
 const appFileRegistry = {
-  assignment: AppAssignment,
-  chapter1: AppChapter1,
-  chapter2: AppChapter2,
-  chapter3: AppChapter3,
-  chapter4: AppChapter4,
-  chapter5: AppChapter5,
-  chapter6: AppChapter6,
-  chapter7: AppChapter7,
-  chapterX: AppChapterX,
+  assignment: () => require('./app/App').default,
+  chapter1: () => require('./solutions/chapter1/App').default,
+  chapter2: () => require('./solutions/chapter2/App').default,
+  chapter3: () => require('./solutions/chapter3/App').default,
+  chapter4: () => require('./solutions/chapter4/App').default,
+  chapter5: () => require('./solutions/chapter5/App').default,
+  chapter6: () => require('./solutions/chapter6/App').default,
+  chapter7: () => require('./solutions/chapter7/App').default,
+  chapterX: () => require('./solutions/chapterX/App').default,
 }
 
-const AppMode = appFileRegistry[activeAppMode]
+const AppMode = appFileRegistry[activeAppMode]()
 
 function App() {
   useEffect(() => {
