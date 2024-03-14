@@ -455,7 +455,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "red.infinite.reactnativeessentials";
+				PRODUCT_BUNDLE_IDENTIFIER = red.infinite.reactnativeessentials;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactNativeEssentials.app/ReactNativeEssentials";
 			};
@@ -479,7 +479,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "red.infinite.reactnativeessentials";
+				PRODUCT_BUNDLE_IDENTIFIER = red.infinite.reactnativeessentials;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactNativeEssentials.app/ReactNativeEssentials";
 			};
@@ -504,7 +504,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "red.infinite.reactnativeessentials";
+				PRODUCT_BUNDLE_IDENTIFIER = red.infinite.reactnativeessentials;
 				PRODUCT_NAME = ReactNativeEssentials;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -530,7 +530,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "red.infinite.reactnativeessentials";
+				PRODUCT_BUNDLE_IDENTIFIER = red.infinite.reactnativeessentials;
 				PRODUCT_NAME = ReactNativeEssentials;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
