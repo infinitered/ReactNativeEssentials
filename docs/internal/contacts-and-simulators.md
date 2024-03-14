@@ -25,7 +25,7 @@ yarn generate:vcard 10 # generates 10 contacts
 3. When prompted, press "Add All Contacts".
 4. When prompted, press "Create New Contacts".
 
-<video src="https://github.com/infinitered/ReactNativeEssentials/assets/1775841/21836320-2a9d-4ef3-9c27-ca605fe0b1d6" />
+<video src="https://github.com/infinitered/ReactNativeEssentials/assets/1775841/21836320-2a9d-4ef3-9c27-ca605fe0b1d6" ></video>
 
 ## (Android) Import Into Emulator
 
@@ -35,4 +35,4 @@ yarn generate:vcard 10 # generates 10 contacts
 4. Drag & drop the generated `contacts.vcf` file onto device.
 5. Press on the added `contacts.vcf` file.
 
-<video src="https://github.com/infinitered/ReactNativeEssentials/assets/1775841/aff9b8be-25fd-4994-9cb6-3a77363610b5" />
+<video src="https://github.com/infinitered/ReactNativeEssentials/assets/1775841/aff9b8be-25fd-4994-9cb6-3a77363610b5" /></video>
