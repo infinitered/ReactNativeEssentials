@@ -1,4 +1,6 @@
 import React from 'react'
+import { ViewStyle } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   initialWindowMetrics,
   SafeAreaProvider,
@@ -12,12 +14,16 @@ setupNotifications()
 
 const App = (): React.JSX.Element | null => {
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <GlobalStateProvider>
-        <AppNavigator />
-      </GlobalStateProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={$gestureHandler}>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <GlobalStateProvider>
+          <AppNavigator />
+        </GlobalStateProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   )
 }
 
 export default App
+
+const $gestureHandler: ViewStyle = { flex: 1 }
