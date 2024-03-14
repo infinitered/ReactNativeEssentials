@@ -21,7 +21,7 @@ yarn generate:vcard 10 # generates 10 contacts
 ## (iOS) Import Into Simulator
 
 1. Open the "Contacts" app.
-2. Drag & drop the generated `contacts.vcf` file onto device.
+2. Drag & drop the generated `.tmp/contacts.vcf` file onto device.
 3. When prompted, press "Add All Contacts".
 4. When prompted, press "Create New Contacts".
 
@@ -32,7 +32,7 @@ yarn generate:vcard 10 # generates 10 contacts
 1. Open the "Contacts" app.
 2. Press "Fix & Manage" (this may be called something else depending on your falvor of emulator).
 3. Press "Import from File".
-4. Drag & drop the generated `contacts.vcf` file onto device.
-5. Press on the added `contacts.vcf` file.
+4. Drag & drop the generated `.tmp/contacts.vcf` file onto device.
+5. Press on the added `.tmp/contacts.vcf` file.
 
 <video src="https://github.com/infinitered/ReactNativeEssentials/assets/1775841/aff9b8be-25fd-4994-9cb6-3a77363610b5" /></video>
