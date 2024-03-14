@@ -1,4 +1,4 @@
-package com.reactnativeessentials
+package red.infinite.reactnativeessentials
 
 import android.app.Application
 import com.facebook.react.PackageList

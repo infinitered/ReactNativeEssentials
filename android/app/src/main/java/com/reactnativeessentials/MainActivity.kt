@@ -1,4 +1,4 @@
-package com.reactnativeessentials
+package red.infinite.reactnativeessentials
 import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash;
 
