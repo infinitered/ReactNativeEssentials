@@ -2,7 +2,6 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from 'react'
 import type { PropsWithChildren } from 'react'
@@ -17,9 +16,8 @@ import {
   ToggleFavorite,
 } from '../../../shared/services/types'
 import { safeParse } from '../../../shared/utils/object'
-import { useAppState } from '../../../shared/utils/useAppState'
 
-export const storage = new MMKV({ id: '@RNEssentials/global/state' })
+const storage = new MMKV({ id: '@RNEssentials/global/state' })
 
 const initFavorites = safeParse(storage.getString('favorites'), [])
 const initReviews = safeParse(storage.getString('reviews'), {})
@@ -34,8 +32,6 @@ export const GlobalStateContext = createContext<GlobalStateContextData>({
 })
 
 export const GlobalStateProvider = ({ children }: PropsWithChildren) => {
-  const appState = useAppState()
-
   const [games, setGames] = useState<Array<Game>>([])
   const [favorites, setFavorites] = useState<Favorites>(initFavorites)
   const [reviews, setReviews] = useState<Reviews>(initReviews)
@@ -68,17 +64,6 @@ export const GlobalStateProvider = ({ children }: PropsWithChildren) => {
     },
     [reviews, setReviews],
   )
-  
-  useEffect(() => {
-    if (appState === 'active') {
-      const newReviewsFromStorage: Reviews = safeParse(
-        storage.getString('reviews'),
-        {},
-      )
-
-      setReviews(newReviewsFromStorage)
-    }
-  }, [appState])
 
   return (
     <GlobalStateContext.Provider

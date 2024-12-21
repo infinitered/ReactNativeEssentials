@@ -1,30 +1,19 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Platform, Pressable } from 'react-native'
 import type { ViewStyle } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { fonts, sizes } from '../../../shared/theme'
-import { getObjectKeys, safeParse } from '../../../shared/utils/object'
-import { useAppState } from '../../../shared/utils/useAppState'
+import { safeParse } from '../../../shared/utils/object'
 import { Icon } from '../components/Icon'
 import type { IconProps } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
 import { useAppTheme, useThemeProvider } from '../services/theme'
-import {
-  cancelScheduledNotifications,
-  NotificationCategory,
-  NotificationChannel,
-  NotificationPressAction,
-  NotificationType,
-  scheduleLocalNotification,
-  useNotificationEvents,
-} from '../services/notifications'
-import { useGlobalState } from '../services/state'
 
 const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
 
@@ -83,8 +72,6 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
 
 const AppStack = () => {
   const { theme: { colors } } = useAppTheme()
-  useNotificationEvents()
-
   return (
     <Stack.Navigator
       initialRouteName="GamesList"
@@ -133,55 +120,6 @@ const AppStack = () => {
 
 export const AppNavigator = (props: NavigationProps) => {
   const { navigationTheme } = useThemeProvider()
-  const { theme: { colors } } = useAppTheme()
-  const appState = useAppState()
-
-  const { favorites, reviews, games } = useGlobalState()
-
-  useEffect(() => {
-    if (appState === 'background') {
-      const reviewsIds = getObjectKeys(reviews).map(Number)
-
-      const game = games.find(
-        g => favorites.includes(g.id) && !reviewsIds.includes(g.id),
-      )
-
-      if (!game) return
-
-      scheduleLocalNotification(
-        {
-          title: `Please Review: ${game.name}`,
-          body: 'Looks like you enjoyed this game! Please leave a review!',
-          data: {
-            notificationType: NotificationType.GameReview,
-            gameId: game.id,
-            gameName: game.name,
-          },
-          ios: {
-            categoryId: NotificationCategory.GameReview,
-          },
-          android: {
-            channelId: NotificationChannel.Default,
-            smallIcon: 'ic_notification_default',
-            color: colors.text.accent,
-            pressAction: { id: 'default' },
-            actions: [
-              {
-                title: 'Review Game',
-                input: true, // Android 14 has issues with input quick actions: https://github.com/invertase/notifee/issues/1002
-                pressAction: { id: NotificationPressAction.SubmitReview },
-              },
-            ],
-          },
-        },
-        5000,
-      )
-    }
-
-    return () => {
-      cancelScheduledNotifications()
-    }
-  }, [appState, favorites, reviews, games])
 
   return (
     <NavigationContainer
