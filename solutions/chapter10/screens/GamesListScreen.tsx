@@ -74,12 +74,17 @@ export const GamesListScreen = () => {
     <>
       <View
         style={themed($favoritesFilter)}
-        accessible
-        accessibilityRole="switch"
-        accessibilityState={{ checked: filterFavorites }}
-        onAccessibilityTap={toggleFavoritesFilter}>
+        // accessible
+        // accessibilityRole="switch"
+        // accessibilityState={{ checked: filterFavorites }}
+        // onAccessibilityTap={toggleFavoritesFilter}
+      >
         <Text preset="title1" tx={'gamesListScreen:showFavorites'} />
-        <Switch on={filterFavorites} onToggle={toggleFavoritesFilter} />
+        <Switch
+          accessible
+          on={filterFavorites}
+          onToggle={toggleFavoritesFilter}
+        />
       </View>
       <SectionList
         sections={games}
